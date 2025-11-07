@@ -1,0 +1,1 @@
+<?php /*?><a href="<?php echo $path; ?>contact.html"><img src="<?php echo $path; ?>images/234x60.jpg" height="60px" width="150px"></a><?php */?>
