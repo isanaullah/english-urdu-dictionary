@@ -23,9 +23,9 @@ use Artesaos\SEOTools\Facades\SEOTools; // Complete SEO tool for flexibility
 class FrontendController extends Controller
 {
 
-public function index()
+public function home()
 {
-    return view();
+    return view("frontend.index");
 }
 
 }
