@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class WordsTypes extends Model
 {
     //
+    protected $table = "words_types";
 }
