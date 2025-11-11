@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\BlogArticleController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\FrontendController;
 use App\Http\Controllers\Admin\FaqsController;
+use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\SliderController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserEducationController;
 use App\Http\Controllers\PageSectionController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\CalculatorController;
 
 
 /*
@@ -44,8 +46,9 @@ use App\Http\Controllers\SectionController;
 |
 */
 Route::get('/generate-sitemap', [SitemapController::class, 'generate'])->name('generate.sitemap');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.xml');
 Route::controller(FrontendController::class)->group(function () {
-    Route::get('/', 'home')->name('home');
+    // Route::get('/hello', 'home')->name('home');
     Route::get('/categorylist', 'categorylist')->name('categorieslist');
 
     // Blog
@@ -70,7 +73,53 @@ Route::controller(SiteController::class)->group(function () {
   // Main page
   Route::get('/', 'index')
     ->name('home');
+
+  // Dictionary pages
+  Route::get('/roman.html', 'roman')->name('roman');
+  Route::get('/urdu.html', 'urdu')->name('urdu');
+  Route::get('/learn-english.html', 'mainLearnEnglish')->name('learn.english');
+  Route::get('/learn-english/{slug}', 'learnEnglishCategory')->name('learn.english.category');
+
+  // Roman word pages
+  Route::get('/roman_words/{alphabet}.html', 'romanWords')->name('roman.words');
+  Route::get('/roman_words/{alphabet}/page-{page}', 'romanWords')->name('roman.words.page');
+  Route::get('/roman/{word}', 'meaningRoman')->name('roman.meaning');
+  Route::get('/roman_not_found', 'romanNotFound')->name('roman.not.found');
+
+  // Urdu word pages
+  Route::get('/urdu_words/{alphabet}.html', 'urduWords')->name('urdu.words');
+  Route::get('/urdu_words/{alphabet}/page-{page}', 'urduWords')->name('urdu.words.page');
+  Route::get('/urdu/{word}', 'meaningUrdu')->name('urdu.meaning');
+  Route::get('/urdu_not_found', 'urduNotFound')->name('urdu.not.found');
+
+  // English word pages
+  Route::get('/english_words/{alphabet}.html', 'englishWords')->name('english.words');
+  Route::get('/english_words/{alphabet}/page-{page}', 'englishWords')->name('english.words.page');
+  Route::get('/meaning/{word}', 'meaningEnglish')->name('english.meaning');
+  Route::get('/english_not_found', 'englishNotFound')->name('english.not.found');
+
+  // Search routes
+  Route::post('/search', 'search')->name('search');
+  Route::post('/search/english', 'searchEnglish')->name('search.english');
+  Route::post('/search/urdu', 'searchUrdu')->name('search.urdu');
+  Route::post('/search/roman', 'searchRoman')->name('search.roman');
 });
+
+// Calculator routes
+Route::controller(CalculatorController::class)->group(function () {
+  Route::match(['get', 'post'], '/calculators/age-calculator.html', 'ageCalculator')->name('calculator.age');
+  Route::match(['get', 'post'], '/calculators/love-calculator.html', 'loveCalculator')->name('calculator.love');
+  Route::match(['get', 'post'], '/calculators/mortgage-calculator.html', 'mortgageCalculator')->name('calculator.mortgage');
+  Route::match(['get', 'post'], '/calculators/emi-calculator.html', 'emiCalculator')->name('calculator.emi');
+  Route::match(['get', 'post'], '/calculators/personal-loan-calculator.html', 'personalLoanCalculator')->name('calculator.personal-loan');
+  Route::match(['get', 'post'], '/calculators/salary-tax-calculator.html', 'salaryTaxCalculator')->name('calculator.salary-tax');
+  Route::match(['get', 'post'], '/calculators/compound-interest-calculator.html', 'compoundInterestCalculator')->name('calculator.compound-interest');
+  Route::match(['get', 'post'], '/calculators/simple-interest-calculator.html', 'simpleInterestCalculator')->name('calculator.simple-interest');
+  Route::match(['get', 'post'], '/calculators/tip-calculator.html', 'tipCalculator')->name('calculator.tip');
+  Route::match(['get', 'post'], '/calculators/home-loan-calculator.html', 'homeLoanCalculator')->name('calculator.home-loan');
+  Route::match(['get', 'post'], '/calculators/car-loan-calculator.html', 'carLoanCalculator')->name('calculator.car-loan');
+});
+
 Route::post('/contact', [ContactController::class, 'send']);
 /// Protected routes
 Route::middleware(['auth'])->group(function () {
@@ -304,6 +353,18 @@ Route::controller(TagController::class)->group(function () {
     Route::get('/tags/{id}/edit', 'edit')->name('tags.edit')->middleware('checkpermission:edit.sliders');
     Route::put('/tags/{id}', 'update')->name('tags.update')->middleware('checkpermission:update.sliders');
     Route::get('/tags/{id}', 'destroy')->name('tags.destroy')->middleware('checkpermission:destroy.sliders');
+});
+
+    // Advertisements
+Route::controller(AdvertisementController::class)->group(function () {
+    Route::get('/advertisements/manage', 'index')->name('advertisements.manage');
+    Route::get('/advertisements/create', 'create')->name('advertisements.create');
+    Route::post('/advertisements/store', 'store')->name('advertisements.store');
+    Route::get('/advertisements/{id}', 'show')->name('advertisements.show');
+    Route::get('/advertisements/{id}/edit', 'edit')->name('advertisements.edit');
+    Route::put('/advertisements/{id}', 'update')->name('advertisements.update');
+    Route::delete('/advertisements/{id}', 'destroy')->name('advertisements.destroy');
+    Route::post('/advertisements/update-status', 'updateStatus')->name('advertisements.updateStatus');
 });
     // App setttings
     Route::controller(AppSettingController::class)->group(function () {

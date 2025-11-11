@@ -32,6 +32,10 @@ class db_connect {
 		try {
 			$conn = new PDO("mysql:host=".$this->host.";dbname=".$this->db.";charset=utf8", $this->user, $this->pass);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			// Set collation to handle mixed character encodings
+			$conn->exec("SET NAMES utf8 COLLATE utf8_general_ci");
+			$conn->exec("SET CHARACTER SET utf8");
+			$conn->exec("SET collation_connection = utf8_general_ci");
 			return $conn;
 		} catch (PDOException $e) {
 			echo 'Connection failed: ' . $e->getMessage();

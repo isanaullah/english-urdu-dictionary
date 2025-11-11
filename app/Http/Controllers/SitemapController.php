@@ -9,6 +9,22 @@ use App\Models\BlogArticle;
 
 class SitemapController extends Controller
 {
+    public function index()
+    {
+        $sitemapPath = public_path('sitemap.xml');
+        
+        if (file_exists($sitemapPath)) {
+            return response()->file($sitemapPath, [
+                'Content-Type' => 'application/xml'
+            ]);
+        }
+        
+        // If sitemap doesn't exist, return the view-based sitemap
+        return response()->view('frontend.sitemap', [], 200, [
+            'Content-Type' => 'application/xml'
+        ]);
+    }
+
     public function generate()
     {
         $baseUrl = url('/');

@@ -1,25 +1,27 @@
-<?php error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);	
+@php
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);	
 if (!isset($_COOKIE['Seen']) || $_COOKIE['Seen'] != 'true') {
     setcookie('Seen', 'false');
 }
-?>
+@endphp
 	 	<meta name="apple-mobile-web-app-title" content="Dictionary">
-          <link type="text/css" rel="stylesheet" media="screen" href="<?php echo $path; ?>css/common.css">
+          <link type="text/css" rel="stylesheet" media="screen" href="{{ $path }}css/common.css">
         
-        <link rel="icon" type="image/x-icon" href="<?php echo $path; ?>images/favicon.png">
-        <link rel="apple-touch-icon" href="<?php echo $path; ?>images/apple-touch-icon.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="<?php echo $path; ?>images/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="<?php echo $path; ?>images/apple-touch-icon-114x114.png">
-		<link rel="stylesheet" href="<?php echo $path; ?>css/style.css" />
+        <link rel="icon" type="image/x-icon" href="{{ $path }}images/favicon.png">
+        <link rel="apple-touch-icon" href="{{ $path }}images/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ $path }}images/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ $path }}images/apple-touch-icon-114x114.png">
+        <link rel="sitemap" type="application/xml" href="{{ route('sitemap.xml') }}" />
+		<link rel="stylesheet" href="{{ $path }}css/style.css" />
 		
 		<!--<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script> 
-		<script type='text/javascript' src='<?php echo $path; ?>js/jquery.js'></script> -->
+		<script type='text/javascript' src='{{ $path }}js/jquery.js'></script> -->
 		
-		<script type='text/javascript' src='<?php echo $path; ?>js/jquery.min.js'></script>
-		<script type='text/javascript' src='<?php echo $path; ?>js/jquery.autocomplete.js'></script>
+		<script type='text/javascript' src='{{ $path }}js/jquery.min.js'></script>
+		<script type='text/javascript' src='{{ $path }}js/jquery.autocomplete.js'></script>
 		
-		<link rel="stylesheet" type="text/css" href="<?php echo $path; ?>css/jquery.autocomplete.css" />
+		<link rel="stylesheet" type="text/css" href="{{ $path }}css/jquery.autocomplete.css" />
         <script type="text/javascript">
             document.getElementsByTagName('html')[0].className = 'js'
             var pageDictCode = "";

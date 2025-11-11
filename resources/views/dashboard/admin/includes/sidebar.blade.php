@@ -89,6 +89,12 @@
                     <span>Settings</span>
                 </a>
             </li>
+            <li class="menu-header">Advertisements</li>
+            <li class="nav-item {{ request()->routeIs('advertisements.manage') ? 'active' : '' }}">
+                <a href="{{ route('advertisements.manage') }}" class="nav-link"><i class="fas fa-cog"></i>
+                    <span>Advertisements</span>
+                </a>
+            </li>
 
         </ul>
 
